@@ -4,3 +4,11 @@
 */cache/*
 !*/cache/index.html
 !*/cache/.htaccess
+system/*
+.DS_Store
+.idea/
+LICENSE
+codeigniter-contributing.md
+codeigniter-license.txt
+codeigniter-readme.rst
+composer.json
