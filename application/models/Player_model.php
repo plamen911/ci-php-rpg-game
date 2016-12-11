@@ -43,7 +43,7 @@ class Player_model extends CI_Model {
      * @param int $player_id
      * @param array $data
      */
-	public function update_profile($player_id = 0, $data = array()) {
+	public function edit_profile($player_id = 0, $data = array()) {
 	    if (!empty($data['password'])) {
 	        $data['password'] = $this->hash_password($data['password']);
         }

@@ -112,7 +112,7 @@ class Player extends CI_Controller {
                 $fields['password'] = $password;
             }
 
-            $this->player_model->update_profile($player_id, $fields);
+            $this->player_model->edit_profile($player_id, $fields);
             $this->session->set_flashdata('success', 'Profile successfully updated.');
             redirect('/profile');
 		}

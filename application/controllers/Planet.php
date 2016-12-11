@@ -60,11 +60,35 @@ class Planet extends CI_Controller
 
     public function editAction($id = 0)
     {
+        if (!$id) {
+            show_404();
+        }
+
         $data = new stdClass();
 
-        $this->load->view('header');
-        $this->load->view('planet/edit', $data);
-        $this->load->view('footer');
+        $player_id = $this->session->userdata('player_id');
+        $planet = $this->planet_model->get_planet($id, $player_id);
+
+        if (!$planet) {
+            show_404();
+        }
+
+        $data->planet = $planet;
+
+        // set validation rules
+        $this->form_validation->set_rules('name', 'Planet Name', 'trim|required');
+        if ($this->form_validation->run() === false) {
+            $this->load->view('header');
+            $this->load->view('planet/edit', $data);
+            $this->load->view('footer');
+        } else {
+            $fields = array(
+                'name' => $this->input->post('name')
+            );
+            $this->planet_model->edit_planet($id, $player_id, $fields);
+            $this->session->set_flashdata('success', 'Planet successfully updated.');
+            redirect('/planet/list');
+        }
     }
 
     public function deleteAction($id = 0)

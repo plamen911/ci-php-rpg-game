@@ -29,6 +29,24 @@ class Planet_model extends CI_Model {
         return $this->db->get()->result();
     }
 
+    /**
+     * @param int $planet_id
+     * @param int $player_id
+     * @return object the planet object
+     */
+    public function get_planet($planet_id = 0, $player_id = 0) {
+        $this->db->from('planets');
+        $this->db->where(array(
+            'id' => $planet_id,
+            'player_id' => $player_id,
+        ));
+        return $this->db->get()->row();
+    }
+
+    /**
+     * @param int $player_id
+     * @param array $name
+     */
     public function create_planet($player_id = 0, $name = array()) {
         // Assign random coordinates
         $data = array(
@@ -50,5 +68,16 @@ class Planet_model extends CI_Model {
                     'amount' => 0
                 ));
         }
+    }
+
+    /**
+     * @param int $planet_id
+     * @param int $player_id
+     * @param array $data
+     */
+    public function edit_planet($planet_id = 0, $player_id = 0, $data = array()) {
+        $this->db->where('id', $planet_id);
+        $this->db->where('player_id', $player_id);
+        $this->db->update('planets', $data);
     }
 }

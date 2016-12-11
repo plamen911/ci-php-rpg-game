@@ -57,8 +57,8 @@ $route['profile'] = 'player/profileAction';
 $route['planet/'] = 'planet/indexAction';
 $route['planet/list'] = 'planet/listAction';
 $route['planet/create'] = 'planet/createAction';
-$route['planet/edit/:num'] = 'planet/editAction/';
-$route['planet/delete/:num'] = 'planet/deleteAction/';
+$route['planet/edit/(:num)'] = 'planet/editAction/$1';
+$route['planet/delete/(:num)'] = 'planet/deleteAction/$1';
 
 $route['default_controller'] = 'player/login';
 $route['404_override'] = '';
