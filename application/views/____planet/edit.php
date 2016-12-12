@@ -13,6 +13,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-4 control-label">Resources</label>
+                    <div class="col-sm-4 ">
+                        <ul class="list-group">
+                            <li class="list-group-item">Metal, Amount: 0 | <a class="btn btn-success btn-xs" href="<?php echo site_url('/resource/create'); ?>">Get More</a> </li>
+                            <li class="list-group-item">Mineral, Amount: 0 | <a class="btn btn-success btn-xs" href="<?php echo site_url('/resource/create'); ?>">Get More</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-4 col-sm-offset-4">
                         <a class="btn btn-default" href="<?php echo site_url('/planet/list'); ?>">Cancel</a>
                         <button type="submit" class="btn btn-primary">Edit</button>

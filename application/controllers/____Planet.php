@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @extends CI_Controller
  */
-class Planet extends CI_Controller
+class OLD_Planet extends CI_Controller
 {
     /**
      * __construct function.

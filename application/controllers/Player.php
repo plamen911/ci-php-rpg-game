@@ -40,9 +40,9 @@ class Player extends CI_Controller {
 		
 		if ($this->form_validation->run() === false) {
 			// validation not ok, send validation errors to the view
-			$this->load->view('header');
+			$this->load->view('header', $data);
 			$this->load->view('player/register', $data);
-			$this->load->view('footer');
+			$this->load->view('footer', $data);
 		} else {
 			// set variables from the form
 			$username = $this->input->post('username');
@@ -56,9 +56,9 @@ class Player extends CI_Controller {
 				$data->error = 'There was a problem creating your new account. Please try again.';
 				
 				// send error to the view
-				$this->load->view('header');
+				$this->load->view('header', $data);
 				$this->load->view('player/register', $data);
-				$this->load->view('footer');
+				$this->load->view('footer', $data);
 			}
 		}
 	}
@@ -70,6 +70,10 @@ class Player extends CI_Controller {
 	 * @return void
 	 */
 	public function profileAction() {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
+
 		$data = new stdClass();
 
         $player_id = $this->session->userdata('player_id');
@@ -81,9 +85,9 @@ class Player extends CI_Controller {
 
 		if ($this->form_validation->run() === false) {
 			// validation not ok, send validation errors to the view
-			$this->load->view('header');
+			$this->load->view('header', $data);
 			$this->load->view('player/profile', $data);
-			$this->load->view('footer');
+			$this->load->view('footer', $data);
 		} else {
 			// set variables from the form
 			$username = $this->input->post('username');
@@ -136,9 +140,9 @@ class Player extends CI_Controller {
 		if ($this->form_validation->run() == false) {
 			
 			// validation not ok, send validation errors to the view
-			$this->load->view('header');
-			$this->load->view('player/login');
-			$this->load->view('footer');
+			$this->load->view('header', $data);
+			$this->load->view('player/login', $data);
+			$this->load->view('footer', $data);
 			
 		} else {
 			
@@ -150,6 +154,7 @@ class Player extends CI_Controller {
 				
 				$player_id = $this->player_model->get_player_id_from_playername($username);
 				$player    = $this->player_model->get_player($player_id);
+				$planet_id = $this->player_model->get_planet_id($player_id);
 
                 // set session user data
                 $this->session->set_userdata(array(
@@ -157,11 +162,12 @@ class Player extends CI_Controller {
                     'player_id' => (int)$player->id,
                     'username' => (string)$player->username,
                     'is_confirmed' => (bool)$player->is_confirmed,
-                    'is_admin' => (bool)$player->is_admin
+                    'is_admin' => (bool)$player->is_admin,
+                    'planet_id' => (int)$planet_id
                 ));
 
 				// user login ok
-				redirect('planet/list');
+				redirect('/');
 				
 			} else {
 				
@@ -169,9 +175,9 @@ class Player extends CI_Controller {
 				$data->error = 'Wrong username or password.';
 				
 				// send error to the view
-				$this->load->view('header');
+				$this->load->view('header', $data);
 				$this->load->view('player/login', $data);
-				$this->load->view('footer');
+				$this->load->view('footer', $data);
 			}
 		}
 	}

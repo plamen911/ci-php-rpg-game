@@ -42,7 +42,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <?php if (isset($_SESSION['username']) && true === $_SESSION['logged_in']) : ?>
-                        <li><a href="<?php echo base_url('planet/list'); ?>">My Planets</a></li>
+                        <?php foreach ($resources as $resource) : ?>
+                            <li><a href="javascript: void(0);"><?php echo strtoupper($resource->name); ?>: <?php echo $resource->amount; ?></a></li>
+                        <?php endforeach; ?>
+                        <li><a href="<?php echo base_url('building/list'); ?>">Buildings</a></li>
+                        <li><a href="<?php echo base_url('ship/list'); ?>">Ships</a></li>
                         <li><a href="<?php echo base_url('profile'); ?>">My Profile</a></li>
                         <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
                     <?php else: ?>

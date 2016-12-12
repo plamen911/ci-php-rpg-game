@@ -54,12 +54,18 @@ $route['login'] = 'player/loginAction';
 $route['logout'] = 'player/logoutAction';
 $route['profile'] = 'player/profileAction';
 
-$route['planet/'] = 'planet/indexAction';
+$route['building'] = 'building/indexAction';
+$route['building/list'] = 'building/listAction';
+$route['building/upgrade/(:num)'] = 'building/upgradeAction/$1';
+
+/*$route['planet'] = 'planet/indexAction';
 $route['planet/list'] = 'planet/listAction';
 $route['planet/create'] = 'planet/createAction';
 $route['planet/edit/(:num)'] = 'planet/editAction/$1';
 $route['planet/delete/(:num)'] = 'planet/deleteAction/$1';
 
-$route['default_controller'] = 'player/login';
+$route['resource/create'] = 'resource/createAction';*/
+
+$route['default_controller'] = 'home/indexAction';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

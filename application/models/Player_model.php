@@ -36,7 +36,13 @@ class Player_model extends CI_Model {
 			'created_at' => date('Y-m-j H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
 		);
-		return $this->db->insert('players', $data);
+		$this->db->insert('players', $data);
+        $player_id = $this->db->insert_id();
+
+        // create planet and set predefined buildings and resources
+		$this->create_planet($player_id, 'Planet of ' . $username);
+
+		return true;
 	}
 
     /**
@@ -129,4 +135,50 @@ class Player_model extends CI_Model {
 		return password_verify($password, $hash);
 	}
 
+    /**
+     * @param int $player_id
+     * @param array $name
+     */
+    private function create_planet($player_id = 0, $name = array()) {
+        // Assign random coordinates
+        $data = array(
+            'name' => $name,
+            'x' => rand(1, 100),
+            'y' => rand(1, 100),
+            'player_id' => $player_id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        );
+        $this->db->insert('planets', $data);
+        $planet_id = $this->db->insert_id();
+
+        // Create predefined buildings (metal and mineral mine)
+        $query = $this->db->get('buildings');
+        foreach ($query->result() as $row) {
+            $data = array(
+                'planet_id' => $planet_id,
+                'building_id' => $row->id,
+                'level' => 1
+            );
+            $this->db->insert('planet_buildings', $data);
+        }
+
+        // Create predefined resources (metal and mineral)
+        $query = $this->db->get('resources');
+        foreach ($query->result() as $row) {
+            $data = array(
+                'planet_id' => $planet_id,
+                'resource_id' => $row->id,
+                'amount' => 0
+            );
+            $this->db->insert('planet_resources', $data);
+        }
+    }
+
+    public function get_planet_id($player_id = 0) {
+        $this->db->select('id');
+        $this->db->from('planets');
+        $this->db->where('player_id', $player_id);
+        return (int)$this->db->get()->row('id');
+    }
 }
