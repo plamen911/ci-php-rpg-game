@@ -24,7 +24,6 @@
     <script src="<?php echo base_url('assets/js/moment.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap-datetimepicker.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/script.js'); ?>"></script>
 </head>
 <body>
 

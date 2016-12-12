@@ -62,7 +62,6 @@ class Building extends CI_Controller
 
         $data->finishes_on = date('r', strtotime($ary['finishes_on']));
 
-        // die('<pre>' . print_r($data, 1) . '</pre>');
         $this->load->view('header', $data);
         $this->load->view('building/upgrade', $data);
         $this->load->view('footer', $data);

@@ -173,6 +173,17 @@ class Player_model extends CI_Model {
             );
             $this->db->insert('planet_resources', $data);
         }
+
+        // Create predefined ships
+        $query = $this->db->get('ships');
+        foreach ($query->result() as $row) {
+            $data = array(
+                'planet_id' => $planet_id,
+                'ship_id' => $row->id,
+                'amount' => 0
+            );
+            $this->db->insert('planet_ships', $data);
+        }
     }
 
     public function get_planet_id($player_id = 0) {

@@ -58,13 +58,9 @@ $route['building'] = 'building/indexAction';
 $route['building/list'] = 'building/listAction';
 $route['building/upgrade/(:num)'] = 'building/upgradeAction/$1';
 
-/*$route['planet'] = 'planet/indexAction';
-$route['planet/list'] = 'planet/listAction';
-$route['planet/create'] = 'planet/createAction';
-$route['planet/edit/(:num)'] = 'planet/editAction/$1';
-$route['planet/delete/(:num)'] = 'planet/deleteAction/$1';
-
-$route['resource/create'] = 'resource/createAction';*/
+$route['ship'] = 'ship/indexAction';
+$route['ship/list'] = 'ship/listAction';
+$route['ship/upgrade/(:num)'] = 'ship/upgradeAction/$1';
 
 $route['default_controller'] = 'home/indexAction';
 $route['404_override'] = '';
