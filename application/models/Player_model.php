@@ -152,6 +152,9 @@ class Player_model extends CI_Model {
         $this->db->insert('planets', $data);
         $planet_id = $this->db->insert_id();
 
+        $buildings = array();
+        $ships = array();
+
         // Create predefined buildings (metal and mineral mine)
         $query = $this->db->get('buildings');
         foreach ($query->result() as $row) {
@@ -161,6 +164,7 @@ class Player_model extends CI_Model {
                 'level' => 1
             );
             $this->db->insert('planet_buildings', $data);
+            $buildings[] = $row->id;
         }
 
         // Create predefined resources (metal and mineral)
@@ -183,6 +187,7 @@ class Player_model extends CI_Model {
                 'amount' => 0
             );
             $this->db->insert('planet_ships', $data);
+            $ships[] = $row->id;
         }
     }
 

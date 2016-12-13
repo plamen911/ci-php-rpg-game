@@ -49,7 +49,7 @@ class Building extends CI_Controller
         $data = $this->data;
 
         if (0 === $this->building_model->get_building($building_id)) {
-            // show_404();
+            $this->session->set_flashdata('danger', 'Invalid Building ID!');
             redirect('/building/list');
         }
 

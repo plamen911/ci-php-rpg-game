@@ -10,17 +10,20 @@
                         <h4 class="list-group-item-heading"><?php echo html_escape($ship->name); ?></h4>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
-                                <p class="list-group-item-text">Ships: <?php echo $ship->qty; ?></p>
+                                <p class="list-group-item-text"><strong>Ships: <?php echo $ship->qty; ?></strong></p>
                                 <?php foreach ($ship->resources as $resource) : ?>
                                     <p class="list-group-item-text"><?php echo html_escape($resource->name); ?>: <?php echo $resource->amount; ?></p>
+                                <?php endforeach; ?>
+                                <?php foreach ($ship->buildings as $building) : ?>
+                                    <p class="list-group-item-text"><?php echo html_escape($building->name); ?>: <?php echo $building->level; ?> Level</p>
                                 <?php endforeach; ?>
                                 <p class="list-group-item-text">Build Time: <?php echo $ship->cost_time; ?> sec.</p>
                             </div>
                             <div class="col-lg-6 col-md-6">
-                                <?php echo form_open('/ship/upgrade/' . $ship->ship_id, 'class="form-inline"'); ?>
+                                <?php echo form_open('/ship/upgrade/' . $ship->ship_id, 'class="form-inline" method="get"'); ?>
                                     <div class="form-group">
                                         <label>Qty:</label>
-                                        <input type="number" class="form-control" name="username" value="0">
+                                        <input type="number" class="form-control" name="amount" value="0">
                                     </div>
                                     <button type="submit" class="btn btn-warning">Order</button>
                                 </form>

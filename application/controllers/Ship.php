@@ -33,10 +33,9 @@ class Ship extends CI_Controller
     {
         $data = $this->data;
 
-        // $this->checkForShipInProgress($data->planet_id);
+        $this->checkForShipInProgress($data->planet_id);
 
         $data->ships = $this->ship_model->get_ships($data->planet_id);
-        // die('<pre>' . print_r($data->ships, 1) . '</pre>');
 
         $this->load->view('header', $data);
         $this->load->view('ship/list', $data);
@@ -49,14 +48,26 @@ class Ship extends CI_Controller
         $ship_id = (int)$ship_id;
         $data = $this->data;
 
-        // todo -- Check if there are available resources
-
-        if (0 === $this->ship_model->get_ship($data->planet_id, $ship_id)) {
-            // show_404();
+        if (!$this->ship_model->get_ship($data->planet_id, $ship_id)) {
+            $this->session->set_flashdata('danger', 'Invalid ship ID!');
             redirect('/ship/list');
         }
 
-        $this->ship_model->set_ships_process($data->planet_id, $ship_id);
+        $amount = (int)$this->input->get('amount');
+        if (0 >= $amount) {
+            $this->session->set_flashdata('danger', 'Please enter ship Qty.');
+            redirect('/ship/list');
+        }
+
+        // Check for available resources and required building levels
+        try {
+            $this->ship_model->has_enough_resources($data->planet_id, $ship_id, $amount);
+        } catch (Exception $ex) {
+            $this->session->set_flashdata('danger', $ex->getMessage());
+            redirect('/ship/list');
+        }
+
+        $this->ship_model->set_ships_process($data->planet_id, $ship_id, $amount);
 
         $ary = $this->ship_model->get_ship_in_process_data($data->planet_id);
         if (0 === $ary['ship_id'] || $ship_id !== $ary['ship_id']) {
@@ -75,8 +86,8 @@ class Ship extends CI_Controller
     {
         $ary = $this->ship_model->get_ship_in_process_data($planet_id);
         if (0 < $ary['ship_id']) {
-            $this->session->set_flashdata('danger', 'Building in progress, please be patient...');
-            redirect('/ship/upgrade/' . $ary['ship_id']);
+            $this->session->set_flashdata('danger', 'Ship building in progress, please be patient...');
+            redirect('/ship/upgrade/' . $ary['ship_id'] . '?amount=' . $ary['amount']);
         }
     }
 }
