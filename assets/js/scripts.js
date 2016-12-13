@@ -5,12 +5,26 @@ function getPlanetResources(ajax_endpoint) {
         dataType: 'json',
         success: function (result, textStatus, jqXHR) {
             if (result && result.hasOwnProperty('data')) {
-                for (var i = 0; i < result.data.length; i++) {
-                    var resource_id = result.data[i].resource_id;
-                    var amount = result.data[i].amount;
-                    $('#planet_resource_' + resource_id).html(amount);
+                var resources = result.data.hasOwnProperty('resources') ? result.data.resources : [];
+                if (resources.length) {
+                    for (var i = 0; i < resources.length; i++) {
+
+                        var resource_id = resources[i].resource_id;
+                        var amount = resources[i].amount;
+                        $('#planet_resource_' + resource_id).html(amount);
+                    }
+                }
+
+                var messages = result.data.hasOwnProperty('messages') ? result.data.messages : [];
+                if (messages.length) {
+                    console.log('messages: ', messages)
                 }
             }
+        },
+        complete: function () {
+            window.setTimeout(function () {
+                getPlanetResources(ajax_endpoint)
+            }, 3000);
         }
     });
 }

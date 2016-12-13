@@ -45,7 +45,7 @@ class Home extends CI_Controller
 
         $ret['code'] = 0;
         $ret['message'] = 'ok';
-        $ret['data'] = $data->resources;
+        $ret['data']['resources'] = $data->resources;
 
         die(json_encode($ret));
     }

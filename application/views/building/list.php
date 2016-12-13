@@ -18,10 +18,3 @@
         </div>
     </div>
 </div>
-
-<script src="<?php echo base_url('assets/js/scripts.js'); ?>"></script>
-<script>
-    $(function(){
-        getPlanetResources('<?php echo site_url('/resources'); ?>');
-    });
-</script>
