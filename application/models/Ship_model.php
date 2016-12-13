@@ -121,7 +121,10 @@ class Ship_model extends CI_Model {
             $this->db->select('amount')
                 ->from('ships_cost_time')
                 ->where('ship_id', $ship_id);
+            // Time in seconds per unit
             $buildingTime = (int)$this->db->get()->row('amount');
+            // Time in seconds for all units
+            $buildingTime *= $amount;
 
             $datetime = new DateTime();
             $datetime->add(new DateInterval('PT' . $buildingTime . 'S'));

@@ -17,7 +17,7 @@
                                 <?php foreach ($ship->buildings as $building) : ?>
                                     <p class="list-group-item-text"><?php echo html_escape($building->name); ?>: <?php echo $building->level; ?> Level</p>
                                 <?php endforeach; ?>
-                                <p class="list-group-item-text">Build Time: <?php echo $ship->cost_time; ?> sec.</p>
+                                <p class="list-group-item-text">Build Time (per unit): <?php echo $ship->cost_time; ?> sec.</p>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <?php echo form_open('/ship/upgrade/' . $ship->ship_id, 'class="form-inline" method="get"'); ?>
