@@ -49,7 +49,9 @@ class Ship extends CI_Controller
         $ship_id = (int)$ship_id;
         $data = $this->data;
 
-        if (0 === $this->ship_model->get_ship($ship_id)) {
+        // todo -- Check if there are available resources
+
+        if (0 === $this->ship_model->get_ship($data->planet_id, $ship_id)) {
             // show_404();
             redirect('/ship/list');
         }

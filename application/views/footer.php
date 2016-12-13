@@ -6,7 +6,7 @@
 
     <footer>
         <div class="container modal-footer">
-            <p>&copy; 2016 - Software University Foundation</p>
+            <p>&copy; 2016 - Plamen Markov</p>
         </div>
     </footer>
 

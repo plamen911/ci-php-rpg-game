@@ -79,6 +79,10 @@ class Player extends CI_Controller {
         $player_id = $this->session->userdata('player_id');
 		$data->player = $this->player_model->get_player($player_id);
 
+        $this->load->model('planet_model');
+        $data->planet_id = $this->session->userdata('planet_id');
+        $data->resources = $this->planet_model->get_resources($data->planet_id);
+
 		// set validation rules
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
