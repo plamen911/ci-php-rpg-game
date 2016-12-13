@@ -64,6 +64,9 @@ $route['ship'] = 'ship/indexAction';
 $route['ship/list'] = 'ship/listAction';
 $route['ship/upgrade/(:num)'] = 'ship/upgradeAction/$1';
 
+$route['galaxy'] = 'galaxy/playersAction';
+$route['galaxy/players'] = 'galaxy/playersAction';
+
 $route['default_controller'] = 'home/indexAction';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
