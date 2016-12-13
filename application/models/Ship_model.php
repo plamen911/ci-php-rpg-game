@@ -103,7 +103,7 @@ class Ship_model extends CI_Model {
         foreach ($records as $record) {
             $building_id = (int)$record->building_id;
             if (isset($requiredLevels[$building_id]) && $requiredLevels[$building_id] > (int)$record->level) {
-                throw new Exception('Insufficient level of ' . $record->name . '.');
+                throw new Exception('Low ' . $record->name . ' level.');
             }
         }
 

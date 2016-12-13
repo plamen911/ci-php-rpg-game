@@ -13,8 +13,8 @@
         runCountdown({
             // endTime: 'December 12 2016 14:56:59 GMT+0200',
             endTime: '<?php echo $finishes_on; ?>',
-            redirectUrl: '<?php echo site_url('ship/list'); ?>?nocache=' + (new Date()).getTime()
-        })
+            redirectUrl: '<?php echo site_url('ship/list'); ?>'
+        });
     });
 </script>
 
