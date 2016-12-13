@@ -27,4 +27,26 @@ class Home extends CI_Controller
         $this->load->view('home/index', $data);
         $this->load->view('footer', $data);
     }
+
+    public function resourcesAction()
+    {
+        $ret = array();
+        $ret['code'] = 0;
+        $ret['message'] = '';
+        $ret['data'] = array();
+
+        if (!$this->session->userdata('logged_in')) {
+            $ret['code'] = 1;
+            $ret['message'] = 'Not logged in!';
+            die(json_encode($ret));
+        }
+
+        $data = $this->data;
+
+        $ret['code'] = 0;
+        $ret['message'] = 'ok';
+        $ret['data'] = $data->resources;
+
+        die(json_encode($ret));
+    }
 }

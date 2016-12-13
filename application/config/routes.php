@@ -54,6 +54,8 @@ $route['login'] = 'player/loginAction';
 $route['logout'] = 'player/logoutAction';
 $route['profile'] = 'player/profileAction';
 
+$route['resources'] = 'home/resourcesAction';
+
 $route['building'] = 'building/indexAction';
 $route['building/list'] = 'building/listAction';
 $route['building/upgrade/(:num)'] = 'building/upgradeAction/$1';

@@ -42,7 +42,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <?php if (isset($_SESSION['username']) && true === $_SESSION['logged_in']) : ?>
                         <?php foreach ($resources as $resource) : ?>
-                            <li><a href="javascript: void(0);"><?php echo strtoupper($resource->name); ?>: <?php echo $resource->amount; ?></a></li>
+                            <li><a href="javascript: void(0);"><?php echo strtoupper($resource->name); ?>:
+                                    <span id="planet_resource_<?php echo $resource->resource_id; ?>"><?php echo $resource->amount; ?></span></a>
+                            </li>
                         <?php endforeach; ?>
                         <li><a href="<?php echo base_url('building/list'); ?>">Buildings</a></li>
                         <li><a href="<?php echo base_url('ship/list'); ?>">Ships</a></li>
