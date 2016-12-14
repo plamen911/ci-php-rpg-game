@@ -23,8 +23,6 @@ class Galaxy_model extends CI_Model {
      * @return mixed
      */
     public function get_players($planet_id = 0) {
-        // todo -- calculate distance with function
-
         // get my planet coordinates
         $this->db->select('x, y')
             ->from('planets')
@@ -38,15 +36,22 @@ class Galaxy_model extends CI_Model {
             ->join('planets', 'planets.player_id = players.id')
             ->order_by('players.username', 'asc');
         foreach ($this->db->get()->result() as $result) {
-            $width = abs((int)$result->x - $x);
-            $height = abs((int)$result->y - $y);
-            $distance = ceil(sqrt(pow($width, 2) + pow($height, 2)));
+            $distance = $this->calc_distance($x, $y, $result->x, $result->y);
             $result->distance = $distance;
             $data[] = $result;
         }
 
         return $data;
     }
+
+    private function calc_distance($x1 = 0, $y1 = 0, $x2 = 0, $y2 = 0) {
+        $width = abs((int)$x2 - $x1);
+        $height = abs((int)$y2 - $y1);
+        return ceil(sqrt(pow($width, 2) + pow($height, 2)));
+    }
+
+    //public function get
+
 }
 
 

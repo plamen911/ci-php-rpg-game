@@ -10,7 +10,7 @@
                     <li class="list-group-item<?php echo (($isMe) ? ' list-group-item-info' : ''); ?>">
                         <?php if (!$isMe) : ?>
                             <div class="pull-right">
-                                <a href="<?php echo site_url('/building/upgrade/'); ?>" class="btn btn-warning">Attack</a>
+                                <a href="<?php echo site_url('/galaxy/flight/' . $player->player_id); ?>" class="btn btn-warning">Attack</a>
                             </div>
                         <?php endif; ?>
                         <h4 class="list-group-item-heading"><?php echo html_escape($player->username); ?>

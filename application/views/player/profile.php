@@ -7,13 +7,13 @@
                 <legend>Profile</legend>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="username">Username</label>
-                    <div class="col-sm-4 ">
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" id="username" placeholder="Your username" name="username" value="<?php echo html_escape($player->username); ?>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="email">Email</label>
-                    <div class="col-sm-4 ">
+                    <div class="col-sm-4">
                         <input type="email" class="form-control" id="email" placeholder="Your email" name="email" value="<?php echo html_escape($player->email); ?>">
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="full_name">Full Name</label>
-                    <div class="col-sm-4 ">
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" id="full_name" placeholder="Your full name" name="full_name" value="<?php echo html_escape($player->full_name); ?>">
                     </div>
                 </div>

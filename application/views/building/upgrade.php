@@ -2,7 +2,7 @@
 
 <div class="container body-content">
     <div class="well">
-        <h2>Upgrading Building Level...</h2>
+        <h2>Upgrading building level in progress...</h2>
         <h3>Time Remaining: <span id="timediv"></span></h3>
     </div>
 </div>

@@ -112,6 +112,13 @@ class Player_model extends CI_Model {
 		return $this->db->get()->row();
 	}
 
+	public function get_player_id_from_planet_id($planet_id = 0) {
+        $this->db->select('player_id');
+        $this->db->from('planets');
+        $this->db->where('id', $planet_id);
+        return (int)$this->db->get()->row('player_id');
+    }
+
 	/**
 	 * hash_password function.
 	 *

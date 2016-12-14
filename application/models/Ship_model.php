@@ -39,6 +39,15 @@ class Ship_model extends CI_Model {
         return $ships;
     }
 
+    public function get_my_ships($planet_id = 0) {
+        $ships = array();
+        foreach ($this->get_ships($planet_id) as $ship) {
+            if (!$ship->qty) continue;
+            $ships[] = $ship;
+        }
+        return $ships;
+    }
+
     public function get_ship($planet_id = 0, $ship_id = 0) {
         $ships = $this->get_ships($planet_id, $ship_id);
         return (!empty($ships[0])) ? $ships[0] : array();
