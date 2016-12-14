@@ -34,6 +34,15 @@ class Planet_model extends CI_Model {
      * @param int $planet_id
      * @return mixed
      */
+    public function get_planet($planet_id = 0) {
+        $query = $this->db->get_where('planets', array('id' => $planet_id));
+        return $query->row();
+    }
+
+    /**
+     * @param int $planet_id
+     * @return mixed
+     */
     public function get_resources($planet_id = 0) {
         $this->add_income_per_hour($planet_id);
 

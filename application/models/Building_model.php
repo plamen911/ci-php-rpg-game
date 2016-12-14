@@ -40,10 +40,10 @@ class Building_model extends CI_Model {
             $planet_building_id = (int)$result->row('id');
             $level = (int)$result->row('level');
 
-            $buildingTime = 10 * $level;// in seconds
+            $building_time = 10 * $level;// in seconds
 
             $datetime = new DateTime();
-            $datetime->add(new DateInterval('PT' . $buildingTime . 'S'));
+            $datetime->add(new DateInterval('PT' . $building_time . 'S'));
             $finishes_on = $datetime->format('Y-m-d H:i:s');
 
             $data = array(

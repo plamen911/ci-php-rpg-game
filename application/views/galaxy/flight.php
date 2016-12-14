@@ -5,7 +5,7 @@
         <h2>My Ships</h2>
         <p class="help-block">Chose how many of each unit type to send to <?php echo html_escape($defender->username); ?>'s planet.</p>
         <div class="row">
-            <?php echo form_open('/galaxy/flight/' . $defender_planet_id, 'class="form-inline"'); ?>
+            <?php echo form_open('/galaxy/flight/' . $defender_player_id); ?>
                 <ul class="list-group">
                     <?php foreach ($ships as $ship): ?>
                         <li class="list-group-item">
@@ -24,9 +24,9 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label class="col-sm-4 control-label1 text-right" style="margin-top: 12px;">Qty:</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" class="form-control" name="amount_<?php echo $ship->ship_id; ?>" value="<?php echo html_escape($ship->amount); ?>">
+                                        <label class="col-sm-4 control-label text-right" style="margin-top: 12px;">Qty:</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" name="amount_<?php echo $ship->ship_id; ?>" value="<?php echo $ship->qty; ?>" min="0" max="<?php echo $ship->qty; ?>" required>
                                             <p class="help-block">max. <?php echo $ship->qty; ?></p>
                                         </div>
                                     </div>
@@ -36,6 +36,7 @@
                     <?php endforeach; ?>
                 </ul>
                 <div class="form-group">
+                    <a class="btn btn-default" href="<?php echo site_url('galaxy/map'); ?>">Cancel</a>
                     <button type="submit" class="btn btn-warning">Send</button>
                 </div>
             </form>
