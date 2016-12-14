@@ -26,10 +26,10 @@ class Galaxy extends CI_Controller
 
     public function indexAction()
     {
-        redirect('/galaxy/players');
+        redirect('/galaxy/map');
     }
 
-    public function playersAction()
+    public function mapAction()
     {
         $data = $this->data;
 

@@ -13,9 +13,14 @@
                                 <a href="<?php echo site_url('/building/upgrade/'); ?>" class="btn btn-warning">Attack</a>
                             </div>
                         <?php endif; ?>
-                        <h4 class="list-group-item-heading"><?php echo html_escape($player->username); ?></h4>
-                        <p class="list-group-item-text">Coordinates: <?php echo $player->x; ?>:<?php echo $player->y; ?>
-                            <?php if (!$isMe) : ?>/ Distance: <?php echo $player->distance; ?> LYA<?php endif; ?></p>
+                        <h4 class="list-group-item-heading"><?php echo html_escape($player->username); ?>
+                            <?php if ($isMe) : ?>
+                                (Me)
+                            <?php endif; ?>
+                        </h4>
+                        <?php if (!$isMe) : ?>
+                            <p class="list-group-item-text">Coordinates: [<?php echo $player->x; ?>:<?php echo $player->y; ?>], Distance: <?php echo $player->distance; ?> LYA</p>
+                        <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

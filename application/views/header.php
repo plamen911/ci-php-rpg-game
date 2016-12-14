@@ -49,7 +49,7 @@
                         <?php endforeach; ?>
                         <li><a href="<?php echo base_url('building/list'); ?>">Buildings</a></li>
                         <li><a href="<?php echo base_url('ship/list'); ?>">Ships</a></li>
-                        <li><a href="<?php echo base_url('galaxy/players'); ?>">Galaxy</a></li>
+                        <li><a href="<?php echo base_url('galaxy/map'); ?>">Galaxy</a></li>
                         <li><a href="<?php echo base_url('profile'); ?>">My Profile</a></li>
                         <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
                     <?php else: ?>
