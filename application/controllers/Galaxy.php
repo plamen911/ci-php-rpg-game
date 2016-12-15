@@ -125,9 +125,42 @@ class Galaxy extends CI_Controller
         $this->load->view('footer', $data);
     }
 
-    public function impactAction($flight_id = 0)
+    public function battleAction($flight_id = 0)
     {
+        $flight_id = (int)$flight_id;
+        $data = $this->data;
 
-        die('Inside impactAction - $flight_id: ' . $flight_id);
+        $flight = $this->galaxy_model->get_flight($flight_id);
+        if (empty($flight)) {
+            $this->session->set_flashdata('danger', 'You must select planet to attack.');
+            redirect('/galaxy/map');
+        }
+
+        $data->flight_id = $flight_id;
+
+        $attacker_player_id = $this->player_model->get_player_id_from_planet_id($flight->attacker_planet_id);
+        $defender_player_id = $this->player_model->get_player_id_from_planet_id($flight->defender_planet_id);
+
+        $data->attacker_player = $this->player_model->get_player($attacker_player_id);
+        $data->defender_player = $this->player_model->get_player($defender_player_id);
+
+        $data->attacker_planet = $this->planet_model->get_planet($flight->attacker_planet_id);
+        $data->defender_planet = $this->planet_model->get_planet($flight->defender_planet_id);
+
+        $data->attacker_ships = $this->ship_model->get_my_ships($flight->attacker_planet_id);
+        $data->defender_ships = $this->ship_model->get_my_ships($flight->defender_planet_id);
+
+        $this->load->view('header', $data);
+        $this->load->view('galaxy/battle', $data);
+        $this->load->view('footer', $data);
+    }
+
+    public function battleReportAction($flight_id = 0)
+    {
+        $flight_id = (int)$flight_id;
+        $data = $this->data;
+
+
+        die('Inside battle report, $flight_id: ' . $flight_id);
     }
 }

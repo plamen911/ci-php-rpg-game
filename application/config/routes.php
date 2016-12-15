@@ -68,7 +68,8 @@ $route['galaxy'] = 'galaxy/mapAction';
 $route['galaxy/map'] = 'galaxy/mapAction';
 $route['galaxy/flight/(:num)'] = 'galaxy/flightAction/$1';
 $route['galaxy/journey/(:num)'] = 'galaxy/journeyAction/$1';
-$route['galaxy/impact/(:num)'] = 'galaxy/impactAction/$1';
+$route['galaxy/battle/(:num)'] = 'galaxy/battleAction/$1';
+$route['galaxy/battle-report/(:num)'] = 'galaxy/battleReportAction/$1';
 
 $route['default_controller'] = 'home/indexAction';
 $route['404_override'] = '';
