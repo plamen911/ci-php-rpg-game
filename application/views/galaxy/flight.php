@@ -3,9 +3,9 @@
 <div class="container body-content">
     <div class="well">
         <h2>My Ships</h2>
-        <p class="help-block">Chose how many of each unit type to send to <?php echo html_escape($defender->username); ?>'s planet.</p>
+        <p class="help-block">Chose how many of each unit type to send to <?php echo get_planet_name($defender_planet); ?>.</p>
         <div class="row">
-            <?php echo form_open('/galaxy/flight/' . $defender_player_id); ?>
+            <?php echo form_open('/galaxy/flight/' . $defender_planet_id); ?>
                 <ul class="list-group">
                     <?php foreach ($ships as $ship): ?>
                         <li class="list-group-item">

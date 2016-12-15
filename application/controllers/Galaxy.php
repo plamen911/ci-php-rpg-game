@@ -35,21 +35,22 @@ class Galaxy extends CI_Controller
     {
         $data = $this->data;
 
-        $data->players = $this->galaxy_model->get_players($data->planet_id);
+        $data->planets = $this->galaxy_model->get_planets_w_distance($data->planet_id);
 
         $this->load->view('header', $data);
         $this->load->view('galaxy/map', $data);
         $this->load->view('footer', $data);
     }
 
-    public function flightAction($defender_player_id = 0)
+    public function flightAction($defender_planet_id = 0)
     {
         $data = $this->data;
-        $data->defender_player_id = (int)$defender_player_id;
+        $defender_player_id = $this->player_model->get_player_id_from_planet_id($defender_planet_id);
+        $data->defender_planet_id = (int)$defender_planet_id;
 
-        if ($data->player_id === $data->defender_player_id) {
+        if ($data->player_id === $defender_player_id) {
             $this->session->set_flashdata('danger', 'You cannot attack yourself!');
-            redirect('/ship/list');
+            redirect('/galaxy/map');
         }
 
         $ships = $this->ship_model->get_my_ships($data->planet_id);
@@ -67,12 +68,12 @@ class Galaxy extends CI_Controller
             redirect('/galaxy/journey/' . $defender_pid);
         }
 
-        $data->defender = $this->player_model->get_player($defender_player_id);
+        $data->defender_planet = $this->planet_model->get_planet($defender_planet_id);
 
-        $isPosted = 'POST' === strtoupper($_SERVER['REQUEST_METHOD']);
+        $is_posted = is_post_request();
 
         $flight_ships = array();
-        if ($isPosted) {
+        if ($is_posted) {
             foreach ($_POST as $key => $val) {
                 if (preg_match('/^amount_(\d+)$/', $key, $matches)) {
                     $ship_id = $matches[1];
@@ -83,18 +84,18 @@ class Galaxy extends CI_Controller
         }
 
         // check ship quantities
-        $hasError = false;
+        $has_error = false;
         foreach ($data->ships as $ship) {
             if (isset($flight_ships[$ship->ship_id]) && $flight_ships[$ship->ship_id] > $ship->qty) {
-                $hasError = true;
+                $has_error = true;
                 $this->session->set_flashdata('danger', 'Max. qty for ' . $ship->name . ' is ' . $ship->qty . '.');
                 break;
             }
         }
 
-        if (!$hasError && $isPosted) {
-            $this->galaxy_model->create_flight($data->planet_id, $defender_player_id, $flight_ships);
-            redirect('/galaxy/journey/' . $defender_player_id);
+        if (!$has_error && $is_posted) {
+            $flight_id = $this->galaxy_model->create_flight($data->planet_id, $data->defender_planet_id, $flight_ships);
+            redirect('/galaxy/journey/' . $flight_id);
 
         } else {
             $this->load->view('header', $data);
@@ -103,10 +104,30 @@ class Galaxy extends CI_Controller
         }
     }
 
-    public function journeyAction($defender_player_id = 0)
+    public function journeyAction($flight_id = 0)
+    {
+        $flight_id = (int)$flight_id;
+        $data = $this->data;
+
+        $flight = $this->galaxy_model->get_flight($flight_id);
+        if (empty($flight)) {
+            $this->session->set_flashdata('danger', 'You must select planet to attack.');
+            redirect('/galaxy/map');
+        }
+
+        $data->flight_id = $flight_id;
+        $data->attacker_planet = $this->planet_model->get_planet($flight->attacker_planet_id);
+        $data->defender_planet = $this->planet_model->get_planet($flight->defender_planet_id);
+        $data->arriving_on = date('r', strtotime($flight->arriving_on));
+
+        $this->load->view('header', $data);
+        $this->load->view('galaxy/journey', $data);
+        $this->load->view('footer', $data);
+    }
+
+    public function impactAction($flight_id = 0)
     {
 
-        die('Journey starts here: ' . $defender_player_id);
-
+        die('Inside impactAction - $flight_id: ' . $flight_id);
     }
 }

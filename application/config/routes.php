@@ -64,10 +64,11 @@ $route['ship'] = 'ship/indexAction';
 $route['ship/list'] = 'ship/listAction';
 $route['ship/upgrade/(:num)'] = 'ship/upgradeAction/$1';
 
-$route['galaxy'] = 'galaxy/playersAction';
+$route['galaxy'] = 'galaxy/mapAction';
 $route['galaxy/map'] = 'galaxy/mapAction';
 $route['galaxy/flight/(:num)'] = 'galaxy/flightAction/$1';
 $route['galaxy/journey/(:num)'] = 'galaxy/journeyAction/$1';
+$route['galaxy/impact/(:num)'] = 'galaxy/impactAction/$1';
 
 $route['default_controller'] = 'home/indexAction';
 $route['404_override'] = '';

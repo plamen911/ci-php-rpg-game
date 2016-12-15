@@ -23,9 +23,14 @@ class Planet_model extends CI_Model {
      * @return mixed
      */
     public function get_planets($player_id = 0) {
+
+        $this->db->select('*, planets.id AS planet_id');
         $this->db->from('planets');
-        $this->db->where('player_id', $player_id);
-        $this->db->order_by('name', 'asc');
+        $this->db->join('players', 'players.id = planets.player_id');
+        if (!empty($player_id)) {
+            $this->db->where('planets.player_id', $player_id);
+        }
+        $this->db->order_by('players.username', 'asc');
 
         return $this->db->get()->result();
     }
@@ -36,7 +41,11 @@ class Planet_model extends CI_Model {
      */
     public function get_planet($planet_id = 0) {
         $query = $this->db->get_where('planets', array('id' => $planet_id));
-        return $query->row();
+        $planet = $query->row();
+        if (!empty($planet)) {
+            $planet->planet_id = $planet->id;
+        }
+        return $planet;
     }
 
     /**

@@ -22,7 +22,7 @@ class Galaxy_model extends CI_Model {
      * @param int $planet_id
      * @return mixed
      */
-    public function get_players($planet_id = 0) {
+    public function get_planets_w_distance($planet_id = 0) {
         // get my planet coordinates
         $this->load->model('planet_model');
         $planet = $this->planet_model->get_planet($planet_id);
@@ -30,13 +30,11 @@ class Galaxy_model extends CI_Model {
         $y = $planet->y;
 
         $data = array();
-        $this->db->from('players')
-            ->join('planets', 'planets.player_id = players.id')
-            ->order_by('players.username', 'asc');
-        foreach ($this->db->get()->result() as $result) {
-            $distance = $this->calc_distance($x, $y, $result->x, $result->y);
-            $result->distance = $distance;
-            $data[] = $result;
+        $planets = $this->planet_model->get_planets();
+        foreach ($planets as $planet) {
+            $distance = $this->calc_distance($x, $y, $planet->x, $planet->y);
+            $planet->distance = $distance;
+            $data[] = $planet;
         }
 
         return $data;
@@ -48,6 +46,12 @@ class Galaxy_model extends CI_Model {
         return ceil(sqrt(pow($width, 2) + pow($height, 2)));
     }
 
+    /**
+     * @param int $attacker_planet_id
+     * @param int $defender_planet_id
+     * @param array $flight_ships
+     * @return int
+     */
     public function create_flight($attacker_planet_id = 0, $defender_planet_id = 0, $flight_ships = array()) {
         $this->delete_old_flights($attacker_planet_id);
 
@@ -57,8 +61,8 @@ class Galaxy_model extends CI_Model {
         $defender_planet = $this->planet_model->get_planet($defender_planet_id);
         $distance = $this->calc_distance($attacker_planet->x, $attacker_planet->y, $defender_planet->x, $defender_planet->y);
 
-        // fake speed = 15
-        $journey_time = (int)ceil($distance / 15);
+        // fake speed = 4
+        $journey_time = (int)ceil($distance / 4);
 
         $datetime = new DateTime();
         $datetime->add(new DateInterval('PT' . $journey_time . 'S'));
@@ -71,7 +75,7 @@ class Galaxy_model extends CI_Model {
             'arriving_on' => $arriving_on
         );
         $this->db->insert('flights', $data);
-        $flight_id = $this->db->insert_id();
+        $flight_id = (int)$this->db->insert_id();
 
         foreach ($flight_ships as $ship_id => $amount) {
             $data = array(
@@ -96,6 +100,8 @@ class Galaxy_model extends CI_Model {
             'expires_on' => $impact_on,
         );
         $this->db->insert('messages', $data);
+
+        return $flight_id;
     }
 
     public function has_flights($attacker_planet_id = 0) {
@@ -119,6 +125,13 @@ class Galaxy_model extends CI_Model {
         $this->db->delete('flights', array(
             'attacker_planet_id' => $attacker_planet_id
         ));
+    }
+
+    public function get_flight($flight_id = 0)
+    {
+        $this->db->from('flights');
+        $this->db->where('id', $flight_id);
+        return $this->db->get()->row();
     }
 
 }

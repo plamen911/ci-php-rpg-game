@@ -41,11 +41,13 @@ class Home extends CI_Controller
             die(json_encode($ret));
         }
 
+        $this->load->model('message_model');
         $data = $this->data;
 
         $ret['code'] = 0;
         $ret['message'] = 'ok';
         $ret['data']['resources'] = $data->resources;
+        $ret['data']['messages'] = $this->message_model->get_messages($data->planet_id);
 
         die(json_encode($ret));
     }

@@ -16,8 +16,13 @@ function getPlanetResources(ajax_endpoint) {
                 }
 
                 var messages = result.data.hasOwnProperty('messages') ? result.data.messages : [];
+
                 if (messages.length) {
-                    console.log('messages: ', messages)
+                    $('#inner-game-message').html(messages.join('<br>'));
+                    $('#game-message').css('display', 'block');
+                } else {
+                    $('#game-message').css('display', 'none');
+                    $('#inner-game-message').html(messages.join('<br>'));
                 }
             }
         },

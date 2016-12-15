@@ -5,21 +5,23 @@
         <h2>Galaxy Map</h2>
         <div class="row">
             <ul class="list-group">
-                <?php foreach ($players as $player): ?>
-                    <?php $isMe = $player_id == $player->player_id;  ?>
+                <?php foreach ($planets as $planet): ?>
+                    <?php $isMe = $player_id == $planet->player_id;  ?>
                     <li class="list-group-item<?php echo (($isMe) ? ' list-group-item-info' : ''); ?>">
                         <?php if (!$isMe) : ?>
                             <div class="pull-right">
-                                <a href="<?php echo site_url('/galaxy/flight/' . $player->player_id); ?>" class="btn btn-warning">Attack</a>
+                                <a href="<?php echo site_url('/galaxy/flight/' . $planet->planet_id); ?>" class="btn btn-warning">Attack</a>
                             </div>
                         <?php endif; ?>
-                        <h4 class="list-group-item-heading"><?php echo html_escape($player->username); ?>
+                        <h4 class="list-group-item-heading"><?php echo html_escape($planet->username); ?>,
                             <?php if ($isMe) : ?>
                                 (Me)
+                            <?php else: ?>
+                                <small><?php echo get_planet_name($planet); ?></small>
                             <?php endif; ?>
                         </h4>
                         <?php if (!$isMe) : ?>
-                            <p class="list-group-item-text">Coordinates: [<?php echo $player->x; ?>:<?php echo $player->y; ?>], Distance: <?php echo $player->distance; ?> LYA</p>
+                            <p class="list-group-item-text">Coordinates: [<?php echo $planet->x; ?>:<?php echo $planet->y; ?>], Distance: <?php echo $planet->distance; ?> LYA</p>
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
