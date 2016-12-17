@@ -12,7 +12,7 @@ codeigniter-contributing.md
 codeigniter-license.txt
 codeigniter-readme.rst
 composer.json
-application/config/*
+application/config/database.php
 phpinfo.php
 
 
