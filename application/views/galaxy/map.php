@@ -14,11 +14,7 @@
                             </div>
                         <?php endif; ?>
                         <h4 class="list-group-item-heading"><?php echo html_escape($planet->username); ?>,
-                            <?php if ($isMe) : ?>
-                                (Me)
-                            <?php else: ?>
-                                <small><?php echo get_planet_name($planet); ?></small>
-                            <?php endif; ?>
+                            <?php echo get_planet_name($planet); ?> <?php if ($isMe) : ?>(Me)<?php endif; ?>
                         </h4>
                         <?php if (!$isMe) : ?>
                             <p class="list-group-item-text">Coordinates: [<?php echo $planet->x; ?>:<?php echo $planet->y; ?>], Distance: <?php echo $planet->distance; ?> LYA</p>
