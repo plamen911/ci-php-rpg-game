@@ -122,6 +122,13 @@ class Planet_model extends CI_Model {
         $this->db->order_by('buildings.name', 'asc');
         return $this->db->get()->result();
     }
+
+    public function delete_planet($planet_id = 0) {
+        $this->db->delete('planet_buildings', array('planet_id' => $planet_id));
+        $this->db->delete('planet_resources', array('planet_id' => $planet_id));
+        $this->db->delete('planet_ships', array('planet_id' => $planet_id));
+        $this->db->delete('planets', array('id' => $planet_id));
+    }
 }
 
 

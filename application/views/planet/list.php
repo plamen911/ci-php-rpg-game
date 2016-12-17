@@ -11,7 +11,7 @@
                         <?php if (!$isActive) : ?>
                             <div class="pull-right">
                                 <a href="<?php echo site_url('/planet/activate/' . $planet->planet_id); ?>" class="btn btn-warning">Set Active</a>
-                                <a href="<?php echo site_url('/planet/delete/' . $planet->planet_id); ?>" class="btn btn-danger">Delete</a>
+                                <a href="<?php echo site_url('/planet/delete/' . $planet->planet_id); ?>" class="btn btn-danger delete-planet">Delete</a>
                             </div>
                         <?php endif; ?>
                         <h4 class="list-group-item-heading"><?php echo get_planet_name($planet); ?></h4>
@@ -25,3 +25,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('.delete-planet').bind('click', function (e) {
+            if (!confirm('Are you sure you want to delete this planet?')) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

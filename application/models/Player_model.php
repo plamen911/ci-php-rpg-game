@@ -196,12 +196,15 @@ class Player_model extends CI_Model {
             $this->db->insert('planet_ships', $data);
             $ships[] = $row->id;
         }
+
+        return $planet_id;
     }
 
     public function get_planet_id($player_id = 0) {
         $this->db->select('id');
         $this->db->from('planets');
         $this->db->where('player_id', $player_id);
+        $this->db->order_by('id', 'asc');
         return (int)$this->db->get()->row('id');
     }
 }

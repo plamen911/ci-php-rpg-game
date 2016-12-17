@@ -17,8 +17,8 @@ class Planet extends CI_Controller
         $this->load->model('building_model');
 
         $data = new stdClass();
-        $data->player_id = $this->session->userdata('player_id');
-        $data->planet_id = $this->session->userdata('planet_id');
+        $data->player_id = (int)$this->session->userdata('player_id');
+        $data->planet_id = (int)$this->session->userdata('planet_id');
 
         $data->resources = $this->planet_model->get_resources($data->planet_id);
 
@@ -44,7 +44,9 @@ class Planet extends CI_Controller
     public function createAction() {
         if (is_post_request()) {
             $data = $this->data;
-            $this->player_model->create_planet($data->player_id, 'Planet of ' . $data->player_id);
+            $planet_id = $this->player_model->create_planet($data->player_id, 'Planet of ' . $data->player_id);
+            $planet = $this->planet_model->get_planet($planet_id);
+            $this->session->set_flashdata('success', 'Planet ' . get_planet_name($planet) . ' successfully created.');
         }
         redirect('/planet/list');
     }
@@ -55,7 +57,7 @@ class Planet extends CI_Controller
         $planet = $this->planet_model->get_planet($planet_id);
 
         if (!$planet) {
-            $this->session->set_flashdata('danger', 'Invalid Planet ID! ' . $this->player_model->get_planet_id($planet_id));
+            $this->session->set_flashdata('danger', 'Invalid Planet ID!');
         } else {
             $this->session->set_userdata('planet_id', $planet_id);
             $this->session->set_userdata('planet_name', get_planet_name($planet));
@@ -69,6 +71,19 @@ class Planet extends CI_Controller
 
         $data = $this->data;
 
+        if ($data->planet_id === $planet_id) {
+            $this->session->set_flashdata('danger', 'You are not allowed to delete current active planet!');
+            redirect('/planet/list');
+        }
 
+        $planet = $this->planet_model->get_planet($planet_id);
+        if (!$planet) {
+            $this->session->set_flashdata('danger', 'Invalid Planet ID!');
+        } else {
+            $this->session->set_flashdata('success', 'Planet ' . get_planet_name($planet) . ' successfully deleted.');
+            $this->planet_model->delete_planet($planet_id);
+        }
+
+        redirect('/planet/list');
     }
 }
