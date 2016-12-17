@@ -16,6 +16,7 @@ class Player extends CI_Controller {
 	public function __construct() {
         parent::__construct();
 		$this->load->model('player_model');
+		$this->load->model('planet_model');
 	}
 
 	public function indexAction() {
@@ -167,7 +168,8 @@ class Player extends CI_Controller {
                     'username' => (string)$player->username,
                     'is_confirmed' => (bool)$player->is_confirmed,
                     'is_admin' => (bool)$player->is_admin,
-                    'planet_id' => (int)$planet_id
+                    'planet_id' => (int)$planet_id,
+                    'planet_name' => get_planet_name($this->planet_model->get_planet($planet_id))
                 ));
 
 				// user login ok

@@ -2,7 +2,7 @@
 
 <div class="container body-content">
     <div class="well">
-        <h2>Battle</h2>
+        <h2>Army journey in progress...</h2>
         <p>From <?php echo get_planet_name($attacker_planet); ?> to <?php echo get_planet_name($defender_planet); ?></p>
         <h3>Time Remaining: <span id="timediv"></span></h3>
     </div>

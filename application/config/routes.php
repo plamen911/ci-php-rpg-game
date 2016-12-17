@@ -59,10 +59,12 @@ $route['resources'] = 'home/resourcesAction';
 $route['building'] = 'building/indexAction';
 $route['building/list'] = 'building/listAction';
 $route['building/upgrade/(:num)'] = 'building/upgradeAction/$1';
+$route['building/finish-upgrade/(:num)'] = 'building/finishUpgradeAction/$1';
 
 $route['ship'] = 'ship/indexAction';
 $route['ship/list'] = 'ship/listAction';
 $route['ship/upgrade/(:num)'] = 'ship/upgradeAction/$1';
+$route['ship/finish-upgrade/(:num)'] = 'ship/finishUpgradeAction/$1';
 
 $route['galaxy'] = 'galaxy/mapAction';
 $route['galaxy/map'] = 'galaxy/mapAction';

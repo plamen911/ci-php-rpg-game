@@ -19,7 +19,11 @@ date_default_timezone_set('Europe/Sofia');
 | environments.
 |
 */
-$config['base_url'] = '';
+if (isset($_SERVER['SERVER_ADMIN']) && 'plamen@lynxlake.org' === $_SERVER['SERVER_ADMIN']) {
+    $config['base_url'] = 'http://localhost/softuni/php-web-development-october-2016/rpg-php-game/';
+} else {
+    $config['base_url'] = 'http://rpg.hipokrat.net/';
+}
 
 /*
 |--------------------------------------------------------------------------

@@ -26,9 +26,12 @@
     <script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap-datetimepicker.min.js'); ?>"></script>
 </head>
-<body>
+<body<?php echo ((isset($html_body_attr)) ? $html_body_attr : ''); ?>>
 
 <header>
+    <?php if (isset($_SESSION['logged_in']) && true === $_SESSION['logged_in']) : ?>
+        <div class="text-right alert-info" style="padding-right: 10px;">Logged-in as: <strong><?php echo html_escape($_SESSION['username']); ?></strong> (<?php echo $_SESSION['planet_name']; ?>)</div>
+    <?php endif; ?>
     <div class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -41,7 +44,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if (isset($_SESSION['username']) && true === $_SESSION['logged_in']) : ?>
+                    <?php if (isset($_SESSION['logged_in']) && true === $_SESSION['logged_in']) : ?>
                         <?php foreach ($resources as $resource) : ?>
                             <li><a href="javascript: void(0);"><?php echo strtoupper($resource->name); ?>:
                                     <span id="planet_resource_<?php echo $resource->resource_id; ?>"><?php echo $resource->amount; ?></span></a>

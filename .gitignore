@@ -12,3 +12,6 @@ codeigniter-contributing.md
 codeigniter-license.txt
 codeigniter-readme.rst
 composer.json
+application/config/database.php
+phpinfo.php
+

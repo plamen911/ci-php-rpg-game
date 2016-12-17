@@ -11,7 +11,7 @@
     </footer>
 
 
-<?php if (isset($_SESSION['username']) && true === $_SESSION['logged_in']) : ?>
+<?php if (isset($_SESSION['logged_in']) && true === $_SESSION['logged_in']) : ?>
     <div id="game-message">
         <div style="padding: 5px;">
             <div id="inner-game-message" class="alert alert-warning"></div>

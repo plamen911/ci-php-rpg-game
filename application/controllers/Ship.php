@@ -33,7 +33,7 @@ class Ship extends CI_Controller
     {
         $data = $this->data;
 
-        $this->checkForShipInProgress($data->planet_id);
+        $this->ship_model->finish_building_process2(33, 2);
 
         $data->ships = $this->ship_model->get_ships($data->planet_id);
 
@@ -67,27 +67,27 @@ class Ship extends CI_Controller
             redirect('/ship/list');
         }
 
-        $this->ship_model->set_ships_process($data->planet_id, $ship_id, $amount);
-
-        $ary = $this->ship_model->get_ship_in_process_data($data->planet_id);
-        if (0 === $ary['ship_id'] || $ship_id !== $ary['ship_id']) {
-            redirect('/ship/list');
-        }
-
-        $data->finishes_on = date('r', strtotime($ary['finishes_on']));
+        $data->ship_id = $ship_id;
+        $result = $this->ship_model->set_building_process2($data->planet_id, $ship_id, $amount);
+        $data->finishes_on = date('r', strtotime($result->finishes_on));
 
         $this->load->view('header', $data);
         $this->load->view('ship/upgrade', $data);
         $this->load->view('footer', $data);
     }
 
-    // check for ship in progress
-    private function checkForShipInProgress($planet_id = 0)
+    public function finishUpgradeAction($ship_id = 0)
     {
-        $ary = $this->ship_model->get_ship_in_process_data($planet_id);
-        if (0 < $ary['ship_id']) {
-            $this->session->set_flashdata('danger', 'Ship building in progress, please be patient...');
-            redirect('/ship/upgrade/' . $ary['ship_id'] . '?amount=' . $ary['amount']);
+        $ship_id = (int)$ship_id;
+        $data = $this->data;
+
+        if (!$this->ship_model->get_ship($data->planet_id, $ship_id)) {
+            $this->session->set_flashdata('danger', 'Invalid ship ID!');
+            redirect('/ship/list');
         }
+
+        $this->ship_model->finish_building_process2($data->planet_id, $ship_id);
+        $this->session->set_flashdata('success', 'Ship quantity was successfully updated.');
+        redirect('/ship/list');
     }
 }

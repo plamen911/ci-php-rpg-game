@@ -5,7 +5,8 @@ if ( ! function_exists('get_planet_name'))
     function get_planet_name($planet = null)
     {
         if (empty($planet)) return '';
-        return 'Planet#' . sprintf('%06d', $planet->planet_id) . '@[' . $planet->x . ':' . $planet->y . ']';
+        // return 'Planet#' . sprintf('%06d', $planet->planet_id) . '@[' . $planet->x . ':' . $planet->y . ']';
+        return 'P' . sprintf('%06d', $planet->planet_id) . '@[' . $planet->x . ':' . $planet->y . ']';
     }
 }
 if ( ! function_exists('is_post_request'))

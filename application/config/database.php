@@ -64,10 +64,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'Mitkov4069',
-	'database' => 'rpg-php-game',
+	'hostname' => '',
+	'username' => '',
+	'password' => '',
+	'database' => '',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -83,3 +83,16 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+if (isset($_SERVER['SERVER_ADMIN']) && 'plamen@lynxlake.org' === $_SERVER['SERVER_ADMIN']) {
+    $db['default']['hostname'] = 'localhost';
+    $db['default']['username'] = 'root';
+    $db['default']['password'] = 'Mitkov4069';
+    $db['default']['database'] = 'rpg-php-game';
+} else {
+    $db['default']['hostname'] = 'localhost';
+    $db['default']['username'] = 'hipokrat_rpg';
+    $db['default']['password'] = 'Mitkov4069';
+    $db['default']['database'] = 'hipokrat_rpg';
+}
+

@@ -16,6 +16,7 @@ class Galaxy extends CI_Controller
         $this->load->model('planet_model');
         $this->load->model('galaxy_model');
         $this->load->model('ship_model');
+        $this->load->model('message_model');
 
         $data = new stdClass();
         $data->player_id = (int)$this->session->userdata('player_id');
@@ -127,28 +128,30 @@ class Galaxy extends CI_Controller
 
     public function battleAction($flight_id = 0)
     {
-        $flight_id = (int)$flight_id;
         $data = $this->data;
-
-        $flight = $this->galaxy_model->get_flight($flight_id);
-        if (empty($flight)) {
-            $this->session->set_flashdata('danger', 'You must select planet to attack.');
+        try {
+            $data = $this->galaxy_model->battle_report($flight_id, $data);
+        } catch (Exception $ex) {
+            $this->session->set_flashdata('danger', $ex->getMessage());
             redirect('/galaxy/map');
         }
 
-        $data->flight_id = $flight_id;
+        //die('<pre>' . print_r($data, 1) . '</pre>');
 
-        $attacker_player_id = $this->player_model->get_player_id_from_planet_id($flight->attacker_planet_id);
-        $defender_player_id = $this->player_model->get_player_id_from_planet_id($flight->defender_planet_id);
+        $battle_end_on = strtotime('+15 seconds');
 
-        $data->attacker_player = $this->player_model->get_player($attacker_player_id);
-        $data->defender_player = $this->player_model->get_player($defender_player_id);
+        $data->battle_end_on = date('r', $battle_end_on);
 
-        $data->attacker_planet = $this->planet_model->get_planet($flight->attacker_planet_id);
-        $data->defender_planet = $this->planet_model->get_planet($flight->defender_planet_id);
+        // set message that battle is started
+        $this->message_model->set_message(array(
+                'attacker_planet_id' => $data->attacker_planet->id,
+                'defender_planet_id' => $data->defender_planet->id,
+                'message_type' => 'battle-in-progress-and-time-remaining-until-end',
+                'expires_on' => date('Y-m-d H:i:s', $battle_end_on)
+            )
+        );
 
-        $data->attacker_ships = $this->ship_model->get_my_ships($flight->attacker_planet_id);
-        $data->defender_ships = $this->ship_model->get_my_ships($flight->defender_planet_id);
+        $data->html_body_attr = ' id="battle-canvas"';
 
         $this->load->view('header', $data);
         $this->load->view('galaxy/battle', $data);
@@ -157,10 +160,16 @@ class Galaxy extends CI_Controller
 
     public function battleReportAction($flight_id = 0)
     {
-        $flight_id = (int)$flight_id;
         $data = $this->data;
+        try {
+            $this->data = $this->galaxy_model->battle_report($flight_id, $data);
+        } catch (Exception $ex) {
+            $this->session->set_flashdata('danger', $ex->getMessage());
+            redirect('/galaxy/map');
+        }
 
-
-        die('Inside battle report, $flight_id: ' . $flight_id);
+        $this->load->view('header', $data);
+        $this->load->view('galaxy/battle-report', $data);
+        $this->load->view('footer', $data);
     }
 }

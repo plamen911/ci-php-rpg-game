@@ -6,12 +6,7 @@
         <h3>Time Remaining: <span id="timediv"></span></h3>
         <div class="row">
             <div class="col-md-6">
-                <img src="<?php echo base_url('assets/img/space-battle.gif'); ?>" class="img-responsive">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Attacker (<?php echo html_escape($attacker_player->username); ?>)</h3>
+                <h3>Attacker (<?php echo (($attacker_player->id == $player_id) ? 'Me' : $attacker_player->username); ?>) Units</h3>
                 <ul class="list-group">
                     <?php foreach ($attacker_ships as $ship): ?>
                         <li class="list-group-item">
@@ -27,7 +22,7 @@
                 </ul>
             </div>
             <div class="col-md-6">
-                <h3>Defender (<?php echo html_escape($defender_player->username); ?>)</h3>
+                <h3>Defender (<?php echo (($defender_player->id == $player_id) ? 'Me' : $defender_player->username); ?>) Units</h3>
                 <ul class="list-group">
                     <?php foreach ($defender_ships as $ship): ?>
                         <li class="list-group-item">
@@ -43,7 +38,30 @@
                 </ul>
             </div>
         </div>
-        <a href="#" class="btn btn-warning">Battle Report</a>
+        <!--<div class="row">
+            <div class="col-md-12">
+                <img src="<?php /*echo base_url('assets/img/space-battle.gif'); */?>" class="img-responsive">
+            </div>
+        </div>-->
+        <!--<hr>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="<?php /*echo site_url('galaxy/battle-report/' . $flight_id); */?>" class="btn btn-warning">Battle Report</a>
+                <p class="help-block">Click to see how many units both sides left with after the battle.</p>
+            </div>
+        </div>-->
     </div>
 </div>
+
+<script src="<?php echo base_url('assets/js/countdown.js'); ?>"></script>
+<script>
+    $(function () {
+        runCountdown({
+            // endTime: 'December 12 2016 14:56:59 GMT+0200',
+            endTime: '<?php echo $battle_end_on; ?>',
+            redirectUrl: '<?php echo site_url('galaxy/battle-report/' . $flight_id); ?>'
+        });
+    });
+</script>
+
 

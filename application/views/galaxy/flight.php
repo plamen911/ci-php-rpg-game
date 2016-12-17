@@ -3,7 +3,7 @@
 <div class="container body-content">
     <div class="well">
         <h2>My Ships</h2>
-        <p class="help-block">Chose how many of each unit type to send to <?php echo get_planet_name($defender_planet); ?>.</p>
+        <p class="help-block">Chose how many of each unit type to send to attack <?php echo get_planet_name($defender_planet); ?>.</p>
         <div class="row">
             <?php echo form_open('/galaxy/flight/' . $defender_planet_id); ?>
                 <ul class="list-group">
@@ -13,14 +13,8 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <p class="list-group-item-text"><strong>Ships: <?php echo $ship->qty; ?></strong></p>
-                                    <?php foreach ($ship->resources as $resource) : ?>
-                                        <p class="list-group-item-text"><?php echo html_escape($resource->name); ?>: <?php echo $resource->amount; ?></p>
-                                    <?php endforeach; ?>
-                                    <?php foreach ($ship->buildings as $building) : ?>
-                                        <p class="list-group-item-text"><?php echo html_escape($building->name); ?>: <?php echo $building->level; ?> Level</p>
-                                    <?php endforeach; ?>
-                                    <p class="list-group-item-text">Build Time (per unit): <?php echo $ship->cost_time; ?> sec.</p>
                                     <p class="list-group-item-text">Damage: <?php echo $ship->damage; ?></p>
+                                    <p class="list-group-item-text">Total Damage: <?php echo ($ship->damage * $ship->qty); ?></p>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="form-group">

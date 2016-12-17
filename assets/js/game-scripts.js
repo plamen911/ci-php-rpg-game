@@ -29,7 +29,7 @@ function getPlanetResources(ajax_endpoint) {
         complete: function () {
             window.setTimeout(function () {
                 getPlanetResources(ajax_endpoint)
-            }, 3000);
+            }, 1000);
         }
     });
 }
