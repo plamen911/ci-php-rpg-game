@@ -50,9 +50,10 @@
                                     <span id="planet_resource_<?php echo $resource->resource_id; ?>"><?php echo $resource->amount; ?></span></a>
                             </li>
                         <?php endforeach; ?>
+                        <li><a href="<?php echo base_url('planet/list'); ?>">Planets</a></li>
                         <li><a href="<?php echo base_url('building/list'); ?>">Buildings</a></li>
                         <li><a href="<?php echo base_url('ship/list'); ?>">Ships</a></li>
-                        <li><a href="<?php echo base_url('galaxy/map'); ?>">Galaxy</a></li>
+                        <li><a href="<?php echo base_url('galaxy/map'); ?>">Battle</a></li>
                         <li><a href="<?php echo base_url('profile'); ?>" title="Logged-in as: <?php echo html_escape($_SESSION['username']); ?>">My Profile</a></li>
                         <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
                     <?php else: ?>

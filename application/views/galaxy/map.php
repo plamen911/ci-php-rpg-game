@@ -6,7 +6,7 @@
         <div class="row">
             <ul class="list-group">
                 <?php foreach ($planets as $planet): ?>
-                    <?php $isMe = $player_id == $planet->player_id;  ?>
+                    <?php $isMe = $player_id == $planet->player_id; ?>
                     <li class="list-group-item<?php echo (($isMe) ? ' list-group-item-info' : ''); ?>">
                         <?php if (!$isMe) : ?>
                             <div class="pull-right">

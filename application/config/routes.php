@@ -56,6 +56,12 @@ $route['profile'] = 'player/profileAction';
 
 $route['resources'] = 'home/resourcesAction';
 
+$route['planet'] = 'planet/indexAction';
+$route['planet/list'] = 'planet/listAction';
+$route['planet/create'] = 'planet/createAction';
+$route['planet/activate/(:num)'] = 'planet/activateAction/$1';
+$route['planet/delete/(:num)'] = 'planet/deleteAction/$1';
+
 $route['building'] = 'building/indexAction';
 $route['building/list'] = 'building/listAction';
 $route['building/upgrade/(:num)'] = 'building/upgradeAction/$1';

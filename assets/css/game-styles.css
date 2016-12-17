@@ -13,5 +13,5 @@
 
 #battle-canvas {
     /*background: url("../img/space-battle.jpg") no-repeat left top;*/
-    background: url("../img/space-battle2.gif") no-repeat left top;
+    background: url("../img/space-battle2.gif") repeat left top;
 }

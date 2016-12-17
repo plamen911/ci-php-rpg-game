@@ -31,6 +31,7 @@ class Planet_model extends CI_Model {
             $this->db->where('planets.player_id', $player_id);
         }
         $this->db->order_by('players.username', 'asc');
+        $this->db->order_by('planets.id', 'asc');
 
         return $this->db->get()->result();
     }
