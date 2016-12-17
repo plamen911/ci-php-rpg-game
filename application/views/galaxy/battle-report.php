@@ -12,7 +12,7 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
-            <a class="btn btn-default" href="<?php echo site_url('ship/list'); ?>">Done</a>
+            <a class="btn btn-default" href="<?php echo site_url('galaxy/journey-back/' . $flight_id); ?>">Done</a>
         </div>
     </div>
 </div>

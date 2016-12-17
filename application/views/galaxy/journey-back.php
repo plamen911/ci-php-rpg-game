@@ -2,8 +2,8 @@
 
 <div class="container body-content">
     <div class="well">
-        <h2>Army journey in progress...</h2>
-        <p>From <?php echo get_planet_name($attacker_planet); ?> to <?php echo get_planet_name($defender_planet); ?></p>
+        <h2>Back home journey in progress...</h2>
+        <p>From <?php echo get_planet_name($defender_planet); ?> to <?php echo get_planet_name($attacker_planet); ?></p>
         <h3>Time Remaining: <span id="timediv"></span></h3>
     </div>
 </div>
@@ -14,7 +14,7 @@
         runCountdown({
             // endTime: 'December 12 2016 14:56:59 GMT+0200',
             endTime: '<?php echo $arriving_on; ?>',
-            redirectUrl: '<?php echo site_url('galaxy/battle/' . $flight_id); ?>'
+            redirectUrl: '<?php echo site_url('/ship/list'); ?>'
         });
     });
 </script>

@@ -130,7 +130,7 @@ class Galaxy extends CI_Controller
     {
         $data = $this->data;
         try {
-            $data = $this->galaxy_model->battle_report($flight_id, $data);
+            $data = $this->galaxy_model->get_battle_data($flight_id, $data);
         } catch (Exception $ex) {
             $this->session->set_flashdata('danger', $ex->getMessage());
             redirect('/galaxy/map');
@@ -168,8 +168,38 @@ class Galaxy extends CI_Controller
             redirect('/galaxy/map');
         }
 
+        $data->flight_id = $flight_id;
+
         $this->load->view('header', $data);
         $this->load->view('galaxy/battle-report', $data);
+        $this->load->view('footer', $data);
+    }
+
+    public function journeyBackAction($flight_id = 0)
+    {
+        $flight_id = (int)$flight_id;
+        $data = $this->data;
+
+        $flight = $this->galaxy_model->get_flight($flight_id);
+        if (empty($flight)) {
+            $this->session->set_flashdata('danger', 'You must select planet to attack.');
+            redirect('/galaxy/map');
+        }
+
+        $data->flight_id = $flight_id;
+        $attacker_planet_id = $flight->attacker_planet_id;
+        $defender_planet_id = $flight->defender_planet_id;
+
+        $data->attacker_planet = $this->planet_model->get_planet($attacker_planet_id);
+        $data->defender_planet = $this->planet_model->get_planet($defender_planet_id);
+
+        $arriving_on = $this->galaxy_model->get_journey_time($attacker_planet_id, $defender_planet_id);
+        $data->arriving_on = date('r', strtotime($arriving_on));
+
+        $this->galaxy_model->delete_flight($flight_id);
+
+        $this->load->view('header', $data);
+        $this->load->view('galaxy/journey-back', $data);
         $this->load->view('footer', $data);
     }
 }

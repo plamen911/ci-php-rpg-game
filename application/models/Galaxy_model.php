@@ -55,20 +55,8 @@ class Galaxy_model extends CI_Model {
     public function create_flight($attacker_planet_id = 0, $defender_planet_id = 0, $flight_ships = array()) {
         $this->delete_old_flights($attacker_planet_id);
 
-        $this->load->model('planet_model');
         $this->load->model('message_model');
-
-        // calc. distance
-        $attacker_planet = $this->planet_model->get_planet($attacker_planet_id);
-        $defender_planet = $this->planet_model->get_planet($defender_planet_id);
-        $distance = $this->calc_distance($attacker_planet->x, $attacker_planet->y, $defender_planet->x, $defender_planet->y);
-
-        // fake speed = 4
-        $journey_time = (int)ceil($distance / 4);
-
-        $datetime = new DateTime();
-        $datetime->add(new DateInterval('PT' . $journey_time . 'S'));
-        $impact_on = $arriving_on = $datetime->format('Y-m-d H:i:s');
+        $impact_on = $arriving_on = $this->get_journey_time($attacker_planet_id, $defender_planet_id);
 
         $data = array(
             'attacker_planet_id' => $attacker_planet_id,
@@ -104,6 +92,23 @@ class Galaxy_model extends CI_Model {
         return $flight_id;
     }
 
+    public function get_journey_time($attacker_planet_id, $defender_planet_id) {
+        $this->load->model('planet_model');
+
+        // calc. distance
+        $attacker_planet = $this->planet_model->get_planet($attacker_planet_id);
+        $defender_planet = $this->planet_model->get_planet($defender_planet_id);
+        $distance = $this->calc_distance($attacker_planet->x, $attacker_planet->y, $defender_planet->x, $defender_planet->y);
+
+        // fake speed = 4
+        $journey_time = (int)ceil($distance / 4);
+
+        $datetime = new DateTime();
+        $datetime->add(new DateInterval('PT' . $journey_time . 'S'));
+
+        return $arriving_on = $datetime->format('Y-m-d H:i:s');
+    }
+
     public function has_flights($attacker_planet_id = 0) {
         $this->delete_old_flights($attacker_planet_id);
 
@@ -134,18 +139,10 @@ class Galaxy_model extends CI_Model {
         return $this->db->get()->row();
     }
 
-    /**
-     * @param int $flight_id
-     * @param null $data
-     * @return null|stdClass
-     * @throws Exception
-     */
-    public function battle_report($flight_id = 0, $data = null)
-    {
+    public function get_battle_data($flight_id = 0, $data = null) {
         $this->load->model('player_model');
         $this->load->model('planet_model');
         $this->load->model('ship_model');
-        $this->load->model('message_model');
 
         $flight_id = (int)$flight_id;
         if (!$data) {
@@ -166,6 +163,12 @@ class Galaxy_model extends CI_Model {
         $attacker_player_id = $this->player_model->get_player_id_from_planet_id($attacker_planet_id);
         $defender_player_id = $this->player_model->get_player_id_from_planet_id($defender_planet_id);
 
+        $data->attacker_player_id = $attacker_player_id;
+        $data->defender_player_id = $defender_player_id;
+
+        $data->attacker_planet_id = $attacker_planet_id;
+        $data->defender_planet_id = $defender_planet_id;
+
         $data->attacker_player = $this->player_model->get_player($attacker_player_id);
         $data->defender_player = $this->player_model->get_player($defender_player_id);
 
@@ -177,6 +180,24 @@ class Galaxy_model extends CI_Model {
 
         $data->attacker_damage = $this->get_total_damage($data->attacker_ships);
         $data->defender_damage = $this->get_total_damage($data->defender_ships);
+
+        return $data;
+    }
+
+    /**
+     * @param int $flight_id
+     * @param null $data
+     * @return null|stdClass
+     * @throws Exception
+     */
+    public function battle_report($flight_id = 0, $data = null)
+    {
+        $this->load->model('message_model');
+
+        $data = $this->get_battle_data($flight_id, $data);
+
+        $attacker_planet_id = $data->attacker_planet_id;
+        $defender_planet_id = $data->defender_planet_id;
 
         // calc. damage factor
         $attacker_ships_left = 0;
@@ -204,8 +225,15 @@ class Galaxy_model extends CI_Model {
 
         $data->stats = $stats;
 
+
+        $this->session->set_userdata('battle_message_report', implode(' ', $stats));
+
+
+
         // delete old messages
         $this->message_model->gelete_old_messages($attacker_planet_id, $defender_planet_id);
+
+
 
         // post new message
         $message_data = array(
@@ -273,6 +301,12 @@ class Galaxy_model extends CI_Model {
             $lower = $attacker_damage;
         }
         return (100 - floor($lower / $bigger * 100)) / 100;
+    }
+
+    public function delete_flight($flight_id = 0) {
+        /*$this->db->delete('flights', array(
+            'id' => (int)$flight_id
+        ));*/
     }
 }
 

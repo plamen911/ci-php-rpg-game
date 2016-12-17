@@ -15,6 +15,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <p class="list-group-item-text"><strong>Ships: <?php echo $ship->qty; ?></strong></p>
                                     <p class="list-group-item-text">Damage: <?php echo $ship->damage; ?></p>
+                                    <p class="list-group-item-text">Total Damage: <?php echo ($ship->damage * $ship->qty); ?></p>
                                 </div>
                             </div>
                         </li>
@@ -31,6 +32,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <p class="list-group-item-text"><strong>Ships: <?php echo $ship->qty; ?></strong></p>
                                     <p class="list-group-item-text">Damage: <?php echo $ship->damage; ?></p>
+                                    <p class="list-group-item-text">Total Damage: <?php echo ($ship->damage * $ship->qty); ?></p>
                                 </div>
                             </div>
                         </li>

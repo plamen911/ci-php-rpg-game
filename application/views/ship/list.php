@@ -19,6 +19,7 @@
                                 <?php endforeach; ?>
                                 <p class="list-group-item-text">Build Time (per unit): <?php echo $ship->cost_time; ?> sec.</p>
                                 <p class="list-group-item-text">Damage: <?php echo $ship->damage; ?></p>
+                                <p class="list-group-item-text">Total Damage: <?php echo ($ship->damage * $ship->qty); ?></p>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <?php echo form_open('/ship/upgrade/' . $ship->ship_id, 'class="form-inline" method="get"'); ?>
