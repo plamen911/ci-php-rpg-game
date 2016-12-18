@@ -27,3 +27,9 @@
         </form>
     </div>
 </div>
+
+<script>
+    $(function () {
+       $('#username').focus();
+    });
+</script>
