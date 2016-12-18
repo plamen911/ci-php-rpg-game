@@ -173,8 +173,12 @@ class Player extends CI_Controller {
                 ));
 
 				// user login ok
-				redirect('/');
-				
+                if ($this->session->userdata('redirect_url')) {
+                    redirect($this->session->userdata('redirect_url'));
+                } else {
+                    redirect('/');
+                }
+
 			} else {
 				
 				// login failed
