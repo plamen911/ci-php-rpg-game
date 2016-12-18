@@ -225,15 +225,10 @@ class Galaxy_model extends CI_Model {
 
         $data->stats = $stats;
 
-
         $this->session->set_userdata('battle_message_report', implode(' ', $stats));
-
-
 
         // delete old messages
         $this->message_model->gelete_old_messages($attacker_planet_id, $defender_planet_id);
-
-
 
         // post new message
         $message_data = array(

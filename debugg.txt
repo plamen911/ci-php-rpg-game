@@ -1,0 +1,4 @@
+$attacker_ships_left: 0
+$defender_ships_left: 0.98
+$attacker_ships_left2: No ships left.
+$defender_ships_left2: Battleship (1), Cruiser (4), Transporter (10).

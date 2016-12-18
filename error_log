@@ -1,0 +1,4 @@
+[17-Dec-2016 17:08:04 Europe/Sofia] PHP Fatal error:  Call to undefined method Ship_model::get_ships_left() in /home/hipokrat/public_html/rpg/application/models/Galaxy_model.php on line 204
+[17-Dec-2016 17:09:24 Europe/Sofia] PHP Fatal error:  Call to undefined method Ship_model::get_ships_left() in /home/hipokrat/public_html/rpg/application/models/Galaxy_model.php on line 207
+[17-Dec-2016 17:53:39 Europe/Sofia] PHP Fatal error:  Call to undefined method Message_model::gelete_old_messages() in /home/hipokrat/public_html/rpg/application/models/Galaxy_model.php on line 92
+[17-Dec-2016 23:17:47 Europe/Sofia] PHP Fatal error:  Call to private method Player_model::create_planet() from context 'Planet' in /home/hipokrat/public_html/rpg/application/controllers/Planet.php on line 47
