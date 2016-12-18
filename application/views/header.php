@@ -50,15 +50,15 @@
                                     <span id="planet_resource_<?php echo $resource->resource_id; ?>"><?php echo $resource->amount; ?></span></a>
                             </li>
                         <?php endforeach; ?>
-                        <li><a href="<?php echo base_url('planet/list'); ?>">Planets</a></li>
-                        <li><a href="<?php echo base_url('building/list'); ?>">Buildings</a></li>
-                        <li><a href="<?php echo base_url('ship/list'); ?>">Ships</a></li>
-                        <li><a href="<?php echo base_url('galaxy/map'); ?>">Battle</a></li>
-                        <li><a href="<?php echo base_url('profile'); ?>" title="Logged-in as: <?php echo html_escape($_SESSION['username']); ?>">My Profile</a></li>
-                        <li><a href="<?php echo base_url('logout'); ?>" class="btn-danger">Logout</a></li>
+                        <li<?php echo active_class('planet'); ?>><a href="<?php echo base_url('planet/list'); ?>">Planets</a></li>
+                        <li<?php echo active_class('building'); ?>><a href="<?php echo base_url('building/list'); ?>">Buildings</a></li>
+                        <li<?php echo active_class('ship'); ?>><a href="<?php echo base_url('ship/list'); ?>">Ships</a></li>
+                        <li<?php echo active_class('galaxy'); ?>><a href="<?php echo base_url('galaxy/map'); ?>">Battle</a></li>
+                        <li<?php echo active_class('profile'); ?>><a href="<?php echo base_url('profile'); ?>" title="Logged-in as: <?php echo html_escape($_SESSION['username']); ?>">My Profile</a></li>
+                        <li class="active"><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
                     <?php else: ?>
-                        <li><a href="<?php echo base_url('register'); ?>">Register</a></li>
-                        <li><a href="<?php echo base_url('login'); ?>">Login</a></li>
+                        <li<?php echo active_class('register'); ?>><a href="<?php echo base_url('register'); ?>">Register</a></li>
+                        <li<?php echo active_class('login'); ?>><a href="<?php echo base_url('login'); ?>">Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
