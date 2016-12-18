@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="username">Username</label>
                     <div class="col-sm-4 ">
-                        <input type="text" class="form-control" id="username" placeholder="Email" name="username" value="<?php echo set_value('username'); ?>">
+                        <input type="text" class="form-control" id="username" placeholder="Username" name="username" value="<?php echo set_value('username'); ?>">
                     </div>
                 </div>
                 <div class="form-group">
