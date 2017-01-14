@@ -1,6 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Galaxy
+ * @author Plamen Markov <plamen@lynxlake.org>
+ * @property Player_model player_model
+ * @property Planet_model $planet_model
+ * @property Galaxy_model $galaxy_model
+ * @property Ship_model $ship_model
+ * @property Message_model $message_model
+ */
 class Galaxy extends CI_Controller
 {
     private $data;

@@ -25,5 +25,10 @@ Game Url: [http://rpg.hipokrat.net](http://rpg.hipokrat.net)
 - If there are left units of the attacker, a backwards journey is made so the army is coming home
 - When the backwards journey ends, the army gets down on the users platform
 
+### Utils
+
+- `https://github.com/natanfelles/codeigniter-phpstorm` - Enable PhpStorm Code Completion to CodeIgniter
+
+
 
 

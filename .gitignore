@@ -4,7 +4,6 @@
 */cache/*
 !*/cache/index.html
 !*/cache/.htaccess
-system/*
 .DS_Store
 .idea/
 LICENSE
@@ -15,4 +14,8 @@ composer.json
 application/config/database.php
 phpinfo.php
 
+
+system/
+test/
+phpstorm.php
 

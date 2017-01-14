@@ -2,9 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Player class.
- * 
- * @extends CI_Controller
+ * Class Player
+ * @author Plamen Markov <plamen@lynxlake.org>
+ * @property Player_model $player_model
+ * @property Planet_model $planet_model
  */
 class Player extends CI_Controller {
 

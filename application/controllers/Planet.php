@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Planet
+ * @author Plamen Markov <plamen@lynxlake.org>
+ * @property Planet_model $planet_model
+ * @property Player_model $player_model
+ * @property Building_model $building_model
+ */
 class Planet extends CI_Controller
 {
     private $data;

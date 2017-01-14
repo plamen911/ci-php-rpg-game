@@ -86,13 +86,13 @@ $db['default'] = array(
 
 if (isset($_SERVER['SERVER_ADMIN']) && 'plamen@lynxlake.org' === $_SERVER['SERVER_ADMIN']) {
     $db['default']['hostname'] = 'localhost';
-    $db['default']['username'] = '';
-    $db['default']['password'] = '';
-    $db['default']['database'] = '';
+    $db['default']['username'] = 'root';
+    $db['default']['password'] = 'Mitkov4069';
+    $db['default']['database'] = 'rpg-php-game';
 } else {
-    $db['default']['hostname'] = '';
-    $db['default']['username'] = '';
-    $db['default']['password'] = '';
-    $db['default']['database'] = '';
+    $db['default']['hostname'] = 'localhost';
+    $db['default']['username'] = 'hipokrat_rpg';
+    $db['default']['password'] = 'Mitkov4069';
+    $db['default']['database'] = 'hipokrat_rpg';
 }
 

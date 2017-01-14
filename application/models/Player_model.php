@@ -144,7 +144,8 @@ class Player_model extends CI_Model {
 
     /**
      * @param int $player_id
-     * @param array $name
+     * @param string $name
+     * @return mixed
      */
     public function create_planet($player_id = 0, $name = '') {
         // Assign random coordinates
